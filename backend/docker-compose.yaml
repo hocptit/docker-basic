@@ -1,0 +1,40 @@
+version: "3.7"
+services:
+  mongodb:
+    image: mongo:5.0
+    container_name: mongo-container
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'admin'
+      MONGO_INITDB_ROOT_PASSWORD: 'admin'
+    ports:
+      - 27022:27017
+    restart: unless-stopped
+    networks:
+      - hh_network
+  next-app:
+    image: nextjs-docker
+    container_name: next-container
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - hh_network
+
+  node-container:
+    container_name: node-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 3001:3001
+    networks:
+      - hh_network
+    depends_on:
+      - mongodb
+
+networks:
+  hh_network:
+    external: true # using external, don't create new network

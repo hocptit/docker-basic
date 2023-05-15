@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = 3000;
+const port = 3001;
 const mongoUri = process.env.mongoUri || 'mongodb://admin:admin@localhost:27017/admin'
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
