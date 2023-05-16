@@ -11,5 +11,5 @@ RUN npm install
 # COPY --from=depend /usr/src/build/app/node_modules ./node_modules
 COPY . .
 
-EXPOSE 3000
+EXPOSE 3001
 CMD [ "node", "index.js" ]

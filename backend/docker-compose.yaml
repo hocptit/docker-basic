@@ -8,6 +8,8 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: 'admin'
     ports:
       - 27022:27017
+    volumes:
+      - mongo-data:/data/db
     restart: unless-stopped
     networks:
       - hh_network
@@ -30,6 +32,12 @@ services:
       - .env
     ports:
       - 3001:3001
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3001/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
     networks:
       - hh_network
     depends_on:
@@ -38,3 +46,5 @@ services:
 networks:
   hh_network:
     external: true # using external, don't create new network
+volumes:
+  mongo-data: # external: true 

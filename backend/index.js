@@ -33,6 +33,11 @@ app.get('/api/article', async (req, res) => {
   res.json(article)
 });
 
+
+app.get('/health', async (req, res) => {
+  res.json({});
+});
+
 app.listen(port, () => {
   console.log(`Server started at http://localhost:${port}`);
 });
