@@ -12,7 +12,7 @@ services:
       - mongo-data:/data/db
     restart: unless-stopped
     networks:
-      - hh_network
+      - hh_network_private # only in private network, not map port
   next-app:
     image: nextjs-docker
     container_name: next-container
@@ -40,11 +40,17 @@ services:
 
     networks:
       - hh_network
+      - hh_network_private
     depends_on:
       - mongodb
 
 networks:
   hh_network:
     external: true # using external, don't create new network
+    name: hh_network_name
+  hh_network_private:
+    internal: true # not public port
+    external: false
+    name: hh_network_private
 volumes:
   mongo-data: # external: true 
